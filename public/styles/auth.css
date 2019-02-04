@@ -1,0 +1,39 @@
+fieldset {
+    border: none;
+    background: #f85032;
+    position: relative;
+    border-radius: 10px;
+}
+
+.auth-title {
+    text-align: center;
+}
+
+.form-style {
+    margin: 0 auto;
+    width: 40%;
+    margin-top: 50px;
+}
+
+.form-input, .form-label {
+    display: block;
+}
+
+.form-input {
+    margin: 5px auto;
+    width: 75%;
+}
+
+.form-label {
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.auth-button {
+    margin: 20px auto 0;
+}
+
+.auth-link {
+    text-align: center;
+}

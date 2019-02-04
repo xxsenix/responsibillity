@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ResponsiBILLity</title>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <nav role="navigation">
+        <a href="index.html" id="nav-title">Responsi<span id="bill">bill</span>ity</a>
+    </nav>
+
+    <header id="dashboard-title">
+        <h1>My Bills</h1>
+    </header>
+
+    <main role="main">
+        <section id="dashboard-body" role="region">
+            <!-- <div class="bill-entry">
+                <p class="bill-entry-info">Reliant Energy</p>
+            </div> -->
+            <button class="collapsible">Reliant Energy</button>
+            <div class="content">
+                <p>Due date: 15th of every month</p>
+                <p>Amount: $121.60</p>
+            </div>
+
+            <button class="collapsible">AT&T</button>
+            <div class="content">
+                <p>Due date: 12th of every month</p>
+                <p>Amount: $44.99</p>
+            </div>
+        </section>
+
+        <section id="dashboard-new-entry" role="region">
+            <button onclick="location.href='signup.html'"><i class="fas fa-plus-square"></i></button>
+        </section>
+    </main>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

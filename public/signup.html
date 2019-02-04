@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ResponsiBILLity</title>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/auth.css">
+</head>
+<body>
+    <nav role="navigation">
+        <a href="index.html" id="nav-title">Responsi<span id="bill">bill</span>ity</a>
+    </nav>
+
+    <main role="main">
+        <section id="auth-section" role="region">
+            <h1 class="auth-title">Sign Up</h1>
+            <form class="form-style">
+                <fieldset>
+                    <label class="form-label" for="firstName">First Name</label>
+                    <input class="form-input" type="text" id="firstName" name="login">
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <input class="form-input" type="text" id="lastName" name="login">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-input" type="text" id="username" name="login">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" type="text" id="password" name="login">
+                    <label class="form-label" for="password">Re-Enter Password</label>
+                    <input class="form-input" type="text" id="rePassword" name="login">
+                    <label class="form-label" for="firstName">Phone Number</label>
+                    <input class="form-input" type="text" id="phoneNumber" name="login">
+                </fieldset>
+            </form>
+            <!--the input submit needs to be put inside the form when i implement -->
+            <input class="auth-button" type="submit" value ="Submit" onclick="location.href='login.html'">
+            <p class="auth-link">Already a member?<a href="login.html">Log In</a></p>
+        </section>
+    </main>
+</body>
+</html>

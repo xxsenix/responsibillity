@@ -1,0 +1,72 @@
+#dashboard-title, #dashboard-body, #dashboard-new-entry {
+    text-align: center;
+}
+
+.fas {
+    font-size: 40px;
+    color: #f85032;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.bill-entry {
+    margin: 0 auto;
+    background: white;
+    height: 35px;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+}
+
+.bill-entry-info {
+    margin: auto;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 50%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .content {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }

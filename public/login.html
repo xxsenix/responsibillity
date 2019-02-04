@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ResponsiBILLity</title>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/auth.css">
+</head>
+<body>
+    <nav role="navigation">
+        <a href="index.html" id="nav-title">Responsi<span id="bill">bill</span>ity</a>
+    </nav>
+
+    <main role="main">
+        <section id="auth-section" role="region">
+            <h1 class="auth-title">Log In</h1>
+            <form class="form-style">
+                <fieldset>
+                    <label class="form-label" for="firstName">Username</label>
+                    <input class="form-input" type="text" id="username" name="login">
+                    <label class="form-label" for="firstName">Password</label>
+                    <input class="form-input" type="text" id="password" name="login">
+                </fieldset>
+            </form>
+            <!--the input submit needs to be put inside the form when I implement -->
+            <input class="auth-button" type="submit" value="Submit" onclick="location.href='dashboard.html'">
+            <p class="auth-link">Need an account?<a href="signup.html">Sign Up</a></p>
+        </section>
+    </main>
+</body>
+</html>

@@ -9,21 +9,18 @@
     <link rel="stylesheet" href="styles/shared.css">
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <body>
     <nav role="navigation">
         <a href="index.html" id="nav-title">Responsi<span id="bill">bill</span>ity</a>
     </nav>
 
     <header id="dashboard-title">
-        <h1>My Bills</h1>
+        <h1 class="dashboard-title">My Bills</h1>
     </header>
 
     <main role="main">
         <section id="dashboard-body" role="region">
-            <!-- <div class="bill-entry">
-                <p class="bill-entry-info">Reliant Energy</p>
-            </div> -->
             <button class="collapsible">Reliant Energy</button>
             <div class="content">
                 <p>Due date: 15th of every month</p>
@@ -38,10 +35,39 @@
         </section>
 
         <section id="dashboard-new-entry" role="region">
-            <button onclick="location.href='signup.html'"><i class="fas fa-plus-square"></i></button>
+            <button id="new-bill">New Bill <i class="fas fa-file-invoice-dollar"></i></button>
+
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Add Bill</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <fieldset>
+                                <label class="form-label" for="billName">Bill Name</label>
+                                <input class="form-input" type="text" id="billName" name="newBill">
+                                <label class="form-label" for="billAmount">Payment Amount</label>
+                                <input class="form-input" type="text" id="billAmount" name="newBill">
+                                <label class="form-label" for="billWebsite">Bill Website</label>
+                                <input class="form-input" type="text" id="billWebsite" name="newBill">
+                                <label class="form-label" for="dueDate">When is your next bill due?</label>
+                                <input class="form-input" id="date-input" type="date" min="2019-02-05" max="2025-12-31" required>
+                                <label for="textReminder">Remind me via text!</label>
+                                <input type="checkbox" id="textReminder" name="textRemind">
+                                <input type="submit" value="Submit" name="new-bill-submit" id="submit-button">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>

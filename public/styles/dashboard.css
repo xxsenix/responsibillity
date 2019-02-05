@@ -2,32 +2,6 @@
     text-align: center;
 }
 
-.fas {
-    font-size: 40px;
-    color: #f85032;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.bill-entry {
-    margin: 0 auto;
-    background: white;
-    height: 35px;
-    width: 50%;
-    border: 1px solid black;
-    border-radius: 10px;
-    display: flex;
-}
-
-.bill-entry-info {
-    margin: auto;
-}
-
-/* Style the button that is used to open and close the collapsible content */
 .collapsible {
     background-color: #eee;
     color: #444;
@@ -42,7 +16,6 @@ button {
     margin-top: 20px;
   }
   
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
   .active, .collapsible:hover {
     background-color: #ccc;
   }
@@ -69,4 +42,100 @@ button {
   
   .active:after {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }
+
+  #new-bill {
+    margin-top: 20px;
+    background: #f85032;
+    width: 100px;
+    height: 50px;
+    color: white;
+  }
+
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+      background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+      background: #f4f4f4;
+      margin: 20% auto;
+      width: 50%;
+      box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 2px 0 rgba(0, 0, 0, 0.17);
+      animation-name: modalopen;
+      animation-duration: 1s;
+      border-radius: 5px;
+  }
+
+  .modal-header h2 {
+      margin: 0;
+      color: white;
+  }
+
+  .modal-header {
+      background: #f85032;
+      padding: 15px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+  }
+
+  .modal-body {
+      padding: 10px 20px;
+  }
+
+  .closeBtn {
+      color: white;
+      float: right;
+      font-size: 30px;
+  }
+
+  .closeBtn:hover, .closeBtn:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  @keyframes modalopen {
+      from {opacity: 0}
+      to {opacity: 1}
+  }
+
+  .form-input, .form-label {
+      display: block;
+      margin: 10px auto;
+  }
+
+  .form-input {
+      width: 60%;
+  }
+
+  #submit-button {
+    background: #f85032;
+    width: 75px;
+    height: 35px;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 15px auto;
+    display: block;
+  }
+
+  #date-input {
+      text-align: center;
+  }
+
+  #textReminder {
+      display: inline-block;
+      margin: 10px auto;
+  }
+
+  fieldset {
+      border: none;
   }

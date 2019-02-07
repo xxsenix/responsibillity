@@ -1,0 +1,54 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+#nav-title {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 20px 0 0 20px;
+    color: black;
+    letter-spacing: 5px;
+}
+
+#bill {
+    color: #f85032;
+}
+
+#index-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.auth-title, .dashboard-title {
+    margin-top: 50px;
+}
+
+#signup-button {
+    margin-top: 20px;
+    background: #f85032;
+    width: 100px;
+    height: 50px;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+a {
+    padding: 5px;
+}
+
+button, input[type="submit"] {
+    cursor: pointer;
+}

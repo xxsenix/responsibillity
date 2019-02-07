@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ResponsiBILLity</title>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<body>
+    <nav role="navigation">
+        <a href="index.html" id="nav-title">Responsi<span id="bill">bill</span>ity</a>
+    </nav>
+
+    <header id="dashboard-title">
+        <h1 class="dashboard-title">My Bills</h1>
+    </header>
+
+    <main role="main">
+        <section id="dashboard-body" role="region">
+            <ul class="js-bill-list">
+                <li class="js-bill-item">
+                    <div class="collapsibleAndContent">
+                            <button class="collapsible">Reliant Energy</button>
+                            <div class="content">
+                                <p>Due date: 2019-02-12</p>
+                                <p>Amount: $121.60</p>
+                                <p>Bill Website: http://www.reliant.com</p>
+                                <button class="js-bill-item-delete">Delete</button>
+                                <button class="js-bill-item-edit">Edit</button>
+                            </div>
+                        </div>
+                </li>
+                <li class="js-bill-item">
+                    <div class="collapsibleAndContent">
+                            <button class="collapsible">AT&T</button>
+                            <div class="content">
+                                <p>Due date: 2019-02-10</p>
+                                <p>Amount: $45.60</p>
+                                <p>Bill Website: http://www.att.com</p>
+                                <button class="js-bill-item-delete">Delete</button>
+                                <button class="js-bill-item-edit">Edit</button>
+                            </div>
+                        </div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="dashboard-new-entry" role="region">
+            <button id="new-bill">New Bill <i class="fas fa-file-invoice-dollar"></i></button>
+
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Add Bill</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <fieldset>
+                                <label class="form-label" for="billName">Bill Name</label>
+                                <input class="form-input" type="text" id="billName" name="newBill" required>
+                                <label class="form-label" for="billAmount">Payment Amount</label>
+                                <input class="form-input" type="text" id="billAmount" name="newBill" required>
+                                <label class="form-label" for="billWebsite">Bill Website</label>
+                                <input class="form-input" type="text" id="billWebsite" name="newBill" required>
+                                <label class="form-label" for="dueDate">When is your next bill due?</label>
+                                <input class="form-input" id="date-input" type="date" min="2019-02-05" max="2025-12-31" required>
+                                <label for="textReminder">Remind me via text!</label>
+                                <input type="checkbox" id="textReminder" name="textRemind">
+                                <input type="submit" value="Submit" name="new-bill-submit" id="submit-button">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

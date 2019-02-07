@@ -21,17 +21,32 @@
 
     <main role="main">
         <section id="dashboard-body" role="region">
-            <button class="collapsible">Reliant Energy</button>
-            <div class="content">
-                <p>Due date: 15th of every month</p>
-                <p>Amount: $121.60</p>
-            </div>
-
-            <button class="collapsible">AT&T</button>
-            <div class="content">
-                <p>Due date: 12th of every month</p>
-                <p>Amount: $44.99</p>
-            </div>
+            <ul class="js-bill-list">
+                <li class="js-bill-item">
+                    <div class="collapsibleAndContent">
+                            <button class="collapsible">Reliant Energy</button>
+                            <div class="content">
+                                <p>Due date: 2019-02-12</p>
+                                <p>Amount: $121.60</p>
+                                <p>Bill Website: http://www.reliant.com</p>
+                                <button class="js-bill-item-delete">Delete</button>
+                                <button class="js-bill-item-edit">Edit</button>
+                            </div>
+                        </div>
+                </li>
+                <li class="js-bill-item">
+                    <div class="collapsibleAndContent">
+                            <button class="collapsible">AT&T</button>
+                            <div class="content">
+                                <p>Due date: 2019-02-10</p>
+                                <p>Amount: $45.60</p>
+                                <p>Bill Website: http://www.att.com</p>
+                                <button class="js-bill-item-delete">Delete</button>
+                                <button class="js-bill-item-edit">Edit</button>
+                            </div>
+                        </div>
+                </li>
+            </ul>
         </section>
 
         <section id="dashboard-new-entry" role="region">
@@ -47,11 +62,11 @@
                         <form>
                             <fieldset>
                                 <label class="form-label" for="billName">Bill Name</label>
-                                <input class="form-input" type="text" id="billName" name="newBill">
+                                <input class="form-input" type="text" id="billName" name="newBill" required>
                                 <label class="form-label" for="billAmount">Payment Amount</label>
-                                <input class="form-input" type="text" id="billAmount" name="newBill">
+                                <input class="form-input" type="text" id="billAmount" name="newBill" required>
                                 <label class="form-label" for="billWebsite">Bill Website</label>
-                                <input class="form-input" type="text" id="billWebsite" name="newBill">
+                                <input class="form-input" type="text" id="billWebsite" name="newBill" required>
                                 <label class="form-label" for="dueDate">When is your next bill due?</label>
                                 <input class="form-input" id="date-input" type="date" min="2019-02-05" max="2025-12-31" required>
                                 <label for="textReminder">Remind me via text!</label>

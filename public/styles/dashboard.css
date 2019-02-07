@@ -128,14 +128,32 @@
   }
 
   #date-input {
-      text-align: center;
+    text-align: center;
   }
 
   #textReminder {
-      display: inline-block;
-      margin: 10px auto;
+    display: inline-block;
+    margin: 10px auto;
   }
 
   fieldset {
-      border: none;
+    border: none;
   }
+
+ .js-bill-item {
+    list-style-type: none;
+ }
+
+ .js-bill-item-delete {
+    background: purple;
+    color: white;
+    margin-bottom: 5px;
+    padding: 5px;
+ }
+
+ .js-bill-item-edit {
+     background: green;
+     color: white;
+     margin-bottom: 5px;
+     padding: 5px;
+ }

@@ -35,7 +35,8 @@ app.post('/', jsonParser, (req, res) => {
         billName: req.body.billName,
         dueDate: req.body.dueDate,
         amount: req.body.amount,
-        billWebsite: req.body.billWebsite
+        billWebsite: req.body.billWebsite,
+        user: req.body.id
     })
     .then(bill => res.status(201).json(bill.serialize()))
     .catch(err => {

@@ -46,19 +46,17 @@ router.post('/', jsonParser, (req, res) => {
         });
     } 
 
-    // const explicitlyTrimmedFields = ['phoneNumber,','password'];
-    // const nonTrimmedField = explicitlyTrimmedFields.find(
-    //     field => req.body[field].trim() !== req.body[field]
-    // );
+    const explicitlyTrimmedField = 'password';
+    const nonTrimmedField = req.body[explicitlyTrimmedField].trim() !== req.body[explicitlyTrimmedField];
 
-    // if(nonTrimmedField) {
-    //     return res.status(422).json({
-    //         code: 422,
-    //         reason: 'ValidationError',
-    //         message: 'Cannot start or end with whitespace',
-    //         location: nonTrimmedField
-    //     });        
-    // }
+    if(nonTrimmedField) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ValidationError',
+            message: 'Cannot start or end with whitespace',
+            location: nonTrimmedField
+        });        
+    }
 
     const sizedFields = {
         phoneNumber: {

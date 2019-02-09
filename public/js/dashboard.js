@@ -51,7 +51,7 @@ function renderData(data) {
 }
 
 function handleSubmit() {
-  $('form').on('click', '#submit-button', function(event) {
+  $('form').on('submit', function(event) {
     event.preventDefault();
     const data = {
       billName: $('#billName').val(),

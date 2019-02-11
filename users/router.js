@@ -33,18 +33,6 @@ router.post('/', jsonParser, (req, res) => {
             location: nonStringField        
         });
     }
-    
-    const numberField = 'phoneNumber';
-    const nonNumberField = numberField in req.body && typeof req.body[numberField] !== 'number';
-   
-    if (nonNumberField) {
-        return res.status(422).json({
-            code: 422,
-            reason: 'ValidationError',
-            message: 'Incorrect field type: expected string',
-            location: nonNumberField        
-        });
-    } 
 
     const explicitlyTrimmedField = 'password';
     const nonTrimmedField = req.body[explicitlyTrimmedField].trim() !== req.body[explicitlyTrimmedField];

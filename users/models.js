@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },

@@ -4,9 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {Bill} = require('./models');
+const passport = require('passport');
 const app = express.Router();
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
-app.get('/', (req, res) => {
+app.get('/', jwtAuth, (req, res) => {
     Bill
      .find()
      .then(bills => {
@@ -19,7 +21,7 @@ app.get('/', (req, res) => {
      });
 });
 
-app.post('/', jsonParser, (req, res) => {
+app.post('/', jwtAuth, jsonParser, (req, res) => {
    const requiredFields = ['billName', 'dueDate', 'amount', 'billWebsite'];
    for (let i = 0; i < requiredFields.length; i++) {
        const field = requiredFields[i];
@@ -36,7 +38,7 @@ app.post('/', jsonParser, (req, res) => {
         dueDate: req.body.dueDate,
         amount: req.body.amount,
         billWebsite: req.body.billWebsite,
-        user: req.body.id
+        user: req.user.id
     })
     .then(bill => res.status(201).json(bill.serialize()))
     .catch(err => {

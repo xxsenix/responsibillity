@@ -1,10 +1,13 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const passport = require('passport');
 
 const { router: usersRouter } = require('./users');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 const billsRouter = require('./bills/billsRouter');
 
@@ -17,6 +20,9 @@ const app = express();
 // Logging
 app.use(morgan('common'));
 
+// Serves static
+app.use(express.static('public'));
+
 // CORS
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -28,11 +34,14 @@ app.use(function (req, res, next) {
     next();
   });
 
-// Serves static
-app.use(express.static('public'));
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 app.use('/api/bills', billsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('*', (req, res) => {
     return res.status(404).json({message: 'Not Found'});

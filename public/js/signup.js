@@ -1,13 +1,14 @@
-// $('#js-password, #js-confirm-password').on('keyup', function(event) {
-//     if ($('#js-password').val() == $('#js-confirm-password').val()) {
-//         $('#js-error-message').html('Passwords Match');
-//     }
-//     else {
-//         $('#js-error-message').html(`Passwords don't match`);
-//     }
-// });
+// Make sure passwords match
+$('#js-password, #js-confirm-password').on('keyup', function(event) {
+    if ($('#js-password').val() == $('#js-confirm-password').val()) {
+        $('#js-error-message').html('Passwords Match');
+    }
+    else {
+        $('#js-error-message').html(`Passwords don't match`);
+    }
+});
 
-// Listen for user submit
+//Listen for user submit
 
 $('.js-submit-form').on('click', '#js-submit-button', function(event) {
     event.preventDefault();
@@ -16,7 +17,9 @@ $('.js-submit-form').on('click', '#js-submit-button', function(event) {
     newUser.password = $('#js-password').val();
     console.log(newUser);
     submitUser(newUser);
-    $('.form-input').empty();
+    $('#js-phoneNumber').val('');
+    $('#js-password').val('');
+    $('#js-confirm-password').val('');
 });
 
 function submitUser(newUser) {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ResponsiBILLity</title>
+    <title>Responsibillity</title>
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/shared.css">
     <link rel="stylesheet" href="styles/auth.css">
@@ -21,14 +21,17 @@
             <form class="form-style js-login-form">
                 <fieldset>
                     <label class="form-label" for="firstName">Phone Number</label>
-                    <input class="form-input" type="text" id="username" name="phoneNumber">
+                    <input class="form-input" type="text" id="js-phoneNumber" name="phoneNumber">
                     <label class="form-label" for="firstName">Password</label>
-                    <input class="form-input" type="text" id="password" name="password">
+                    <input class="form-input" type="text" id="js-password" name="password">
+                    <p id="js-login-error-message"></p>
                     <input class="auth-button js-login-button" type="submit" value="Submit">
                 </fieldset>
             </form>
             <p class="auth-link">Need an account?<a href="signup.html">Sign Up</a></p>
         </section>
     </main>
+    <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 </html>

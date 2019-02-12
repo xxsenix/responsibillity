@@ -157,3 +157,11 @@
      margin-bottom: 5px;
      padding: 5px;
  }
+
+ #js-signout-link {
+     position: fixed;
+     right: 0;
+     padding: 20px;
+     font-size: 15px;
+     text-decoration: none;
+ }

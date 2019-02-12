@@ -45,7 +45,7 @@ fieldset {
     text-align: center;
 }
 
-#js-error-message {
+#js-error-message, #js-login-error-message {
     color: rgb(109, 6, 4);
     text-align: center;
     font-weight: bold;

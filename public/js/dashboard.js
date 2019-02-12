@@ -21,16 +21,17 @@ function refreshToken() {
       {   
         method: "POST",
         headers: {
-           'Accept': 'application/json',
-            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${state.token}`
         }   
       })
       .then(response =>{
-           if (response.status === 401) {
+          if (response.status === 401) {
             clearAuth()
-          }else{
-              return response.json()
+          }
+          else {
+            return response.json()
           }
       })
       .then(data => {
@@ -67,9 +68,9 @@ function fetchBills(callback) {
     method: "GET"
   })
   .then(response => response.json())
-  .then(responseJson => {
-    return responseJson
-  })
+  // .then(responseJson => {
+  //   return responseJson
+  // })
   .then(responseJson => {
     renderAllBills(responseJson)
   })
@@ -83,10 +84,10 @@ function renderBill(bill) {
   <button class="collapsible">${bill.billName}</button>
     <div class="content">
         <p>Due date: ${bill.dueDate}</p>
-        <p>Amount: ${bill.billAmount}</p>
+        <p>Amount: ${bill.amount}</p>
         <p>Website: ${bill.billWebsite}</p>
-        <button class="js-bill-item-delete">Delete</button>
-        <button class="js-bill-item-edit">Edit</button>
+        <button class="js-bill-item-delete" data-billID="${bill.id}">Delete</button>
+        <button class="js-bill-item-edit" data-billID="${bill.id}">Edit</button>
     </div>
   </li>`
 }
@@ -137,6 +138,42 @@ function postBill(newBill) {
   .catch(error => console.log('Bad request'));
 }
 
+// PUT trip
+
+function getIdEdit() {
+  $('.js-bill-list').on('click', '.js-bill-item-edit', function(event) {
+    event.preventDefault();
+    const billId = $(event.currentTarget)[0].attributes[1].nodeValue;
+    getOneBill(billId);
+    openModal();
+  })
+}
+
+function getOneBill(billId) {
+  fetch(`api/bills/${billId}`,
+  {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${state.token}`
+    },
+    method: "GET"
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(responseJson => {
+    populateModal(responseJson);
+  })
+  .catch(error => console.log('Bad request'));
+}
+
+function populateModal(responseJson) {
+  $('#billName').val(`${responseJson.billName}`)
+  $('#billAmount').val(`${responseJson.amount}`)
+  $('#billWebsite').val(`${responseJson.billWebsite}`)
+}
+
 let modal = $('.modal');
 let modalBtn = $('#new-bill');
 let closeBtn = $('.closeBtn');
@@ -183,6 +220,7 @@ function handleBillDelete() {
 function handleApp() {
   getAuthToken();
   fetchBills();
+  getIdEdit();
   handleSignOut();
   handleCollapsible();
   submitNewBill();

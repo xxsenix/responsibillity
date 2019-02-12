@@ -18,7 +18,8 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.methods.serialize = function() {
     return {
-        phoneNumber: this.phoneNumber || ''
+        phoneNumber: this.phoneNumber || '',
+        id: this._id
     };
 };
 

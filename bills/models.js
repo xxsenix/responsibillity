@@ -17,7 +17,7 @@ billSchema.methods.serialize = function() {
         billName: this.billName,
         dueDate: this.dueDate,
         amount: this.amount,
-        billWebsite: this.billWebsite
+        billWebsite: this.billWebsite,
     };
 };
 

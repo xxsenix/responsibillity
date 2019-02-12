@@ -4,20 +4,31 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {Bill} = require('./models');
+const {User} = require('./../users/models')
 const passport = require('passport');
 const app = express.Router();
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/', jwtAuth, (req, res) => {
-    Bill
-     .find()
-     .then(bills => {
-         res.json(bills.map(bill => bill.serialize()));
-     })
-     .catch(err => {
-         console.error(err);
-         res.status(500).json({error: 'Something went wrong'});
-     });
+    User
+      .findOne({
+          phoneNumber: req.user.phoneNumber
+      })
+      .then(user => {
+          console.log(user);
+        Bill
+        .find({
+           user: user._id
+        })
+        .then(bills => {
+            console.log(bills);
+           res.json(bills.map(bill => bill.serialize()));
+        })
+        .catch(err => {
+            console.error(err);
+           res.status(500).json({error: 'Something went wrong'});
+        });
+      })
 });
 
 app.get('/:id', jwtAuth, (req, res) => {
@@ -40,20 +51,27 @@ app.post('/', jwtAuth, jsonParser, (req, res) => {
            return res.status(400).send(message)
        }
    }
-
-   Bill
+   
+   User
+   .findOne({
+       phoneNumber: req.user.phoneNumber
+   })
+   .then(user => {
+       console.log(user);
+    Bill
     .create({
         billName: req.body.billName,
         dueDate: req.body.dueDate,
         amount: req.body.amount,
         billWebsite: req.body.billWebsite,
-        user: req.user.id
+        user: user._id
     })
     .then(bill => res.status(201).json(bill.serialize()))
     .catch(err => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'})
-    });
+    });    
+   })   
 });
 
 app.delete('/:id', jwtAuth, (req, res) => {

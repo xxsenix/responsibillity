@@ -53,14 +53,14 @@
         <section id="dashboard-new-entry" role="region">
             <button id="new-bill">New Bill <i class="fas fa-file-invoice-dollar"></i></button>
 
-            <div class="modal">
+            <div class="modal" id="new-bill-modal">
                 <div class="modal-content">
                     <div class="modal-header">
                         <span class="closeBtn">&times;</span>
                         <h2>Add Bill</h2>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="new-bill-form">
                             <fieldset>
                                 <label class="form-label" for="billName">Bill Name</label>
                                 <input class="form-input" type="text" id="billName" name="newBill" required>
@@ -73,6 +73,31 @@
                                 <label for="textReminder">Remind me via text!</label>
                                 <input type="checkbox" id="textReminder" name="textRemind">
                                 <input type="submit" value="Submit" name="new-bill-submit" id="submit-button">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="editable-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Add Bill</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-form">
+                            <fieldset>
+                                <label class="form-label" for="billName">Bill Name</label>
+                                <input class="form-input" type="text" id="edit-billName" name="newBill" required>
+                                <label class="form-label" for="billAmount">Payment Amount</label>
+                                <input class="form-input" type="text" id="edit-billAmount" name="newBill" required>
+                                <label class="form-label" for="billWebsite">Bill Website</label>
+                                <input class="form-input" type="text" id="edit-billWebsite" name="newBill" required>
+                                <label class="form-label" for="dueDate">When is your next bill due?</label>
+                                <input class="form-input" id="edit-date-input" type="date" min="2019-02-05" max="2025-12-31" required>
+                                <label for="textReminder">Remind me via text!</label>
+                                <input type="checkbox" id="textReminder" name="textRemind">
+                                <input type="submit" value="Submit" name="edit-bill-submit" id="js-edit-submit-button">
                             </fieldset>
                         </form>
                     </div>

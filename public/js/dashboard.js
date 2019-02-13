@@ -81,13 +81,14 @@ function fetchBills(callback) {
 
 function renderBill(bill) {
   return `<li class="js-bill-item">
+  <span class="hidden" id="bill-id"></span>
   <button class="collapsible">${bill.billName}</button>
     <div class="content">
         <p>Due date: ${bill.dueDate}</p>
         <p>Amount: ${bill.amount}</p>
         <p>Website: ${bill.billWebsite}</p>
-        <button class="js-bill-item-delete" data-billID="${bill.id}">Delete</button>
-        <button class="js-bill-item-edit" data-billID="${bill.id}">Edit</button>
+        <button class="js-bill-item-delete" data-billID="${bill.id}"><i class="far fa-trash-alt"></i></button>
+        <button class="js-bill-item-edit" data-billID="${bill.id}"><i class="fas fa-edit"></i></button>
     </div>
   </li>`
 }
@@ -105,7 +106,7 @@ function renderAllBills(responseJson) {
 
 // Listen for new bill submit
 function submitNewBill() {
-  $('form').on('submit', function(event) {
+  $('#new-bill-form').on('submit', function(event) {
     event.preventDefault();
     const newBill = {
       billName: $('#billName').val().trim(),
@@ -113,7 +114,6 @@ function submitNewBill() {
       billWebsite: $('#billWebsite').val().trim(),
       dueDate: $('#date-input').val().trim()
     }
-    console.log(newBill);
     postBill(newBill)
     closeModal();
   });
@@ -138,14 +138,14 @@ function postBill(newBill) {
   .catch(error => console.log('Bad request'));
 }
 
-// PUT trip
+// PUT bill
 
-function getIdEdit() {
+function getIdtoEditBill() {
   $('.js-bill-list').on('click', '.js-bill-item-edit', function(event) {
     event.preventDefault();
     const billId = $(event.currentTarget)[0].attributes[1].nodeValue;
     getOneBill(billId);
-    openModal();
+    openEditableModal();
   })
 }
 
@@ -163,18 +163,53 @@ function getOneBill(billId) {
     return response.json()
   })
   .then(responseJson => {
+    console.log('responseJson', responseJson);
     populateModal(responseJson);
   })
   .catch(error => console.log('Bad request'));
 }
 
 function populateModal(responseJson) {
-  $('#billName').val(`${responseJson.billName}`)
-  $('#billAmount').val(`${responseJson.amount}`)
-  $('#billWebsite').val(`${responseJson.billWebsite}`)
+  $("#bill-id").text(`${responseJson.id}`);
+  $('#edit-billName').val(`${responseJson.billName}`)
+  $('#edit-billAmount').val(`${responseJson.amount}`)
+  $('#edit-billWebsite').val(`${responseJson.billWebsite}`)
 }
 
-let modal = $('.modal');
+function handleEditSubmit() {
+  $('#edit-form').on('submit', function(event) {
+    event.preventDefault();
+    const editedBill = {
+      id: $('#bill-id').text(),
+      billName: $('#edit-billName').val().trim(),
+      amount: $('#edit-billAmount').val(),
+      billWebsite: $('#edit-billWebsite').val().trim(),
+      dueDate: $('#edit-date-input').val().trim()
+    }
+    submitEditedBill(editedBill);  
+  });
+}
+
+function submitEditedBill(editedBill) {
+  fetch(`api/bills/${editedBill.id}`,
+  {
+    headers : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${state.token}`
+    },
+    method: "PUT",
+    body: JSON.stringify(editedBill)
+  })
+  .then(response => {
+    closeModal();
+    fetchBills();
+  })
+  .catch(error => console.log('error'));
+}
+
+let modal = $('#new-bill-modal');
+let editableModal = $('#editable-modal')
 let modalBtn = $('#new-bill');
 let closeBtn = $('.closeBtn');
 
@@ -185,17 +220,25 @@ closeBtn.on('click', closeModal);
 $(window).on('click', outsideClick);
 
 function openModal() {
-    modal.show();
+  modal.show();
+}
+
+function openEditableModal() {
+  editableModal.show();
 }
 
 function closeModal() {
-    modal.hide();
+  modal.hide();
+  editableModal.hide();
 }
 
 function outsideClick(e) {
-    if (e.target == modal[0]) {
-        modal.hide();
-    }
+  if (e.target == modal[0]) {
+    modal.hide();
+  }
+  else if (e.target == editableModal[0]) {
+    editableModal.hide();
+  }
 }
 
 function handleCollapsible() {
@@ -220,11 +263,13 @@ function handleBillDelete() {
 function handleApp() {
   getAuthToken();
   fetchBills();
-  getIdEdit();
+  getIdtoEditBill();
+  handleEditSubmit();
   handleSignOut();
   handleCollapsible();
   submitNewBill();
   handleBillDelete();
 }
+
 $(handleApp);
 

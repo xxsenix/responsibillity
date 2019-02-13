@@ -12,23 +12,21 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 app.get('/', jwtAuth, (req, res) => {
     User
       .findOne({
-          phoneNumber: req.user.phoneNumber
+        phoneNumber: req.user.phoneNumber
       })
       .then(user => {
-          console.log(user);
-        Bill
-        .find({
-           user: user._id
-        })
-        .then(bills => {
-            console.log(bills);
-           res.json(bills.map(bill => bill.serialize()));
-        })
-        .catch(err => {
-            console.error(err);
-           res.status(500).json({error: 'Something went wrong'});
-        });
+    Bill
+      .find({
+        user: user._id
       })
+      .then(bills => {
+        res.json(bills.map(bill => bill.serialize()));
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'});
+      });
+    })
 });
 
 app.get('/:id', jwtAuth, (req, res) => {
@@ -56,8 +54,7 @@ app.post('/', jwtAuth, jsonParser, (req, res) => {
    .findOne({
        phoneNumber: req.user.phoneNumber
    })
-   .then(user => {
-       console.log(user);
+   .then(user => { 
     Bill
     .create({
         billName: req.body.billName,
@@ -100,7 +97,7 @@ app.put('/:id', jwtAuth, jsonParser, (req, res) => {
     });
     
     Bill
-        .findOneAndUpdate(req.params.id, { $set: updated }, { new: true }) 
+        .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true }) 
         .then(bill => res.status(204).end())
         .catch(err => res.status(500).json({ message: 'Something went wrong' }));
 });

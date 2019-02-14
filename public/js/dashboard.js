@@ -85,8 +85,8 @@ function renderBill(bill) {
   <button class="collapsible">${bill.billName}</button>
     <div class="content">
         <p>Due date: ${bill.dueDate}</p>
-        <p>Amount: ${bill.amount}</p>
-        <p>Website: ${bill.billWebsite}</p>
+        <p>Amount: $${bill.amount}</p>
+        <p>Website: <a href="${bill.billWebsite}">${bill.billWebsite}</a></p>
         <button class="js-bill-item-delete" data-billID="${bill.id}"><i class="far fa-trash-alt"></i></button>
         <button class="js-bill-item-edit" data-billID="${bill.id}"><i class="fas fa-edit"></i></button>
     </div>
@@ -112,7 +112,7 @@ function submitNewBill() {
       billName: $('#billName').val().trim(),
       amount: $('#billAmount').val(),
       billWebsite: $('#billWebsite').val().trim(),
-      dueDate: $('#date-input').val().trim()
+      dueDate: convertDate($('#date-input').val())
     }
     postBill(newBill)
     closeModal();
@@ -174,6 +174,7 @@ function populateModal(responseJson) {
   $('#edit-billName').val(`${responseJson.billName}`)
   $('#edit-billAmount').val(`${responseJson.amount}`)
   $('#edit-billWebsite').val(`${responseJson.billWebsite}`)
+  $('#edit-date-input').val(`${responseJson.dueDate}`)
 }
 
 function handleEditSubmit() {
@@ -184,7 +185,7 @@ function handleEditSubmit() {
       billName: $('#edit-billName').val().trim(),
       amount: $('#edit-billAmount').val(),
       billWebsite: $('#edit-billWebsite').val().trim(),
-      dueDate: $('#edit-date-input').val().trim()
+      dueDate: convertDate($('#edit-date-input').val())
     }
     submitEditedBill(editedBill);  
   });
@@ -207,6 +208,37 @@ function submitEditedBill(editedBill) {
   })
   .catch(error => console.log('error'));
 }
+
+// DELETE bill
+function getIdtoDeleteBill() {
+  $('.js-bill-list').on('click', '.js-bill-item-delete', function(event) {
+    event.preventDefault();
+    const billId = $(event.currentTarget)[0].attributes[1].nodeValue;
+    if (confirm("Are you sure you want to delete this bill?")) {
+      deleteBill(billId);
+    }
+  });
+}
+
+function deleteBill(billId) {
+  fetch(`/api/bills/${billId}`,
+  {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${state.token}`
+    },
+    method: "DELETE",
+    body: JSON.stringify(billId)
+  })
+  .then(response => {
+    fetchBills();
+    return response.json();
+  })
+  .catch(error => console.log('Bad request'));
+}
+
+// Modal section - handle open and closing of it
 
 let modal = $('#new-bill-modal');
 let editableModal = $('#editable-modal')
@@ -241,6 +273,8 @@ function outsideClick(e) {
   }
 }
 
+// Expands the bill when clicked
+
 function handleCollapsible() {
  $('#dashboard-body').on('click', '.collapsible', function() {
       this.classList.toggle("active");
@@ -253,22 +287,19 @@ function handleCollapsible() {
     });
   }
 
-function handleBillDelete() {
-  $('.js-bill-list').on('click', '.js-bill-item-delete', function(e) {
-    e.preventDefault();
-    $(e.currentTarget).closest('.js-bill-item').remove();
-  });
-}
+  function convertDate(date) {
+    return date.slice(5) + '-' + date.substring(0,4);
+  }
 
 function handleApp() {
   getAuthToken();
   fetchBills();
   getIdtoEditBill();
   handleEditSubmit();
+  getIdtoDeleteBill();
   handleSignOut();
   handleCollapsible();
   submitNewBill();
-  handleBillDelete();
 }
 
 $(handleApp);

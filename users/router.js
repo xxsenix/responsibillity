@@ -12,8 +12,10 @@ const jsonParser = bodyParser.json();
 router.post('/', jsonParser, (req, res) => {
     const requiredFields = ['phoneNumber', 'password'];
     const missingField = requiredFields.find(field => !(field in req.body));
+    console.log(missingField);
 
     if (missingField) {
+        console.log(missingField);
       return res.status(422).json({
         code: 422,
         reason: 'ValidationError',
@@ -30,7 +32,7 @@ router.post('/', jsonParser, (req, res) => {
             code: 422,
             reason: 'ValidationError',
             message: 'Incorrect field type: expected string',
-            location: nonStringField        
+            location: stringField        
         });
     }
 
@@ -42,7 +44,7 @@ router.post('/', jsonParser, (req, res) => {
             code: 422,
             reason: 'ValidationError',
             message: 'Cannot start or end with whitespace',
-            location: nonTrimmedField
+            location: explicitlyTrimmedField
         });        
     }
 
@@ -56,12 +58,6 @@ router.post('/', jsonParser, (req, res) => {
         }
     };
 
-    // const notEqualField = Object.keys(sizedFields).find(
-    //     field =>
-    //       'num' in sizedFields[field] &&
-    //             req.body[field].trim().length !== sizedFields[field].min
-    // );
-
     const tooSmallField = Object.keys(sizedFields).find(
         field =>
           'min' in sizedFields[field] &&
@@ -73,16 +69,7 @@ router.post('/', jsonParser, (req, res) => {
           'max' in sizedFields[field] &&
                 req.body[field].trim().length > sizedFields[field].min
     );
-
-    // if (notEqualField) {
-    //     return res.status(422).json({
-    //         code: 422,
-    //         reason: 'ValidationError',
-    //         message: `Must be exactly ${sizedFields[notEqualField].num} digits long`,
-    //         location: notEqualField
-    //     });
-    // }
-
+    
     if (tooSmallField) {
         return res.status(422).json({
             code: 422,

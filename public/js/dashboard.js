@@ -1,4 +1,4 @@
-let dayInMilliseconds = 1000 * 60 * 60 * 24;
+let dayInMilliseconds = 86400000;
 
 let state = {
   token: ""
@@ -68,9 +68,6 @@ function fetchBills(callback) {
     method: "GET"
   })
   .then(response => response.json())
-  // .then(responseJson => {
-  //   return responseJson
-  // })
   .then(responseJson => {
     renderAllBills(responseJson)
   })
@@ -86,7 +83,7 @@ function renderBill(bill) {
     <div class="content">
         <p>Due date: ${bill.dueDate}</p>
         <p>Amount: $${bill.amount}</p>
-        <p>Website: <a href="${bill.billWebsite}">${bill.billWebsite}</a></p>
+        <p>Website: <a href="http://www.${bill.billWebsite}" target="_blank">${bill.billWebsite}</a></p>
         <button class="js-bill-item-delete" data-billID="${bill.id}"><i class="far fa-trash-alt"></i></button>
         <button class="js-bill-item-edit" data-billID="${bill.id}"><i class="fas fa-edit"></i></button>
     </div>

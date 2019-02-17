@@ -38,22 +38,82 @@ describe('/api/user', function () {
                 .request(app)
                 .post('/api/users')
                 .send({
-                password
+                    password
                 })
-                .then(() =>
-                expect.fail(null, null, 'Request should not succeed')
-                )
+                .then((res) =>{
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal('Missing field');
+                    expect(res.body.location).to.equal('phoneNumber');
+                })
                 .catch(err => {
-                if (err instanceof chai.AssertionError) {
-                    throw err;
-                }
-    
-                const res = err.response;
-                expect(res).to.have.status(422);
-                expect(res.body.reason).to.equal('ValidationError');
-                expect(res.body.message).to.equal('Missing field');
-                expect(res.body.location).to.equal('phoneNumber');
+                    if (err) {
+                        throw err;
+                    }
                 });
+            });
+            it('Should reject users with missing password', function () {
+                return chai
+                    .request(app)
+                    .post('/api/users')
+                    .send({
+                        phoneNumber
+                    })
+                    .then((res) =>{
+                        expect(res).to.have.status(422);
+                        expect(res.body.reason).to.equal('ValidationError');
+                        expect(res.body.message).to.equal('Missing field');
+                        expect(res.body.location).to.equal('password');
+                    })
+                    .catch(err => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+            });
+            it('Should reject users with non-string password', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber,
+                    password: 1234,
+                  })
+                  .then((res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal(
+                      'Incorrect field type: expected string'
+                    );
+                    expect(res.body.location).to.equal('password');
+                  })
+                  .catch(err => {
+                    if (err) {
+                      throw err;
+                    }
+                  });
+            });
+            it('Should reject users with non-trimmed password', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber,
+                    password: ` ${password} `,
+                  })
+                  .then((res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal(
+                      'Cannot start or end with whitespace'
+                    );
+                    expect(res.body.location).to.equal('password');
+                  })
+                  .catch(err => {
+                    if (err) {
+                      throw err;
+                    }
+                  });
             });
         });
     });

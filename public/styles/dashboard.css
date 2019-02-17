@@ -162,6 +162,8 @@
      padding: 20px;
      font-size: 15px;
      text-decoration: none;
+     float: right;
+     padding: 20px;
  }
 
  .hidden {

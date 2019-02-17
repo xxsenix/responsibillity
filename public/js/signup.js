@@ -9,8 +9,7 @@ $('#js-password, #js-confirm-password').on('keyup', function(event) {
 });
 
 //Listen for user submit
-
-$('.js-submit-form').on('click', '#js-submit-button', function(event) {
+$('.js-submit-form').on('submit', '#js-submit-button', function(event) {
     event.preventDefault();
     let newUser = {};
     newUser.phoneNumber = $('#js-phoneNumber').val().toString();
@@ -41,4 +40,3 @@ function submitUser(newUser) {
         }
     })
     .catch(error => console.log('Bad request'));
-}

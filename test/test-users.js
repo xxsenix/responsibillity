@@ -12,9 +12,11 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('/api/user', function () {
-    const phoneNumber = '2141112345';
+    const phoneNumber = 2141112345;
+    const phoneNumberInJSON = '2141112345';
     const password = 'examplePass';
-    const phoneNumberB = '4693569067';
+    const phoneNumberB = 4693569067;
+    const phoneNumberBInJSON = '4693569067';
     const passwordB = 'anotherExample';
 
     before(function () {
@@ -28,7 +30,7 @@ describe('/api/user', function () {
       beforeEach(function () { });
     
       afterEach(function () {
-        return User.remove({});
+        return User.deleteMany({});
       });
 
     describe('/api/users', function() {
@@ -71,6 +73,29 @@ describe('/api/user', function () {
                         }
                     });
             });
+            it('Should reject users with non-numeric phone number', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber: 'aaaaaaaaaa',
+                    password
+                  })
+                  .then((res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal(
+                      'Incorrect field type: expected number'
+                    );
+                    expect(res.body.location).to.equal('phoneNumber');
+                  })
+                  .catch(err => {
+                    if (err) {
+                      throw err;
+                    }
+                  });
+            });
+
             it('Should reject users with non-string password', function () {
                 return chai
                   .request(app)
@@ -203,9 +228,8 @@ describe('/api/user', function () {
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.keys(
                       'phoneNumber'
-                    //   'id'
                     );
-                    expect(res.body.phoneNumber).to.equal(phoneNumber);
+                    expect(res.body.phoneNumber).to.equal(phoneNumberInJSON);
                     return User.findOne({
                         phoneNumber
                     });
@@ -220,38 +244,4 @@ describe('/api/user', function () {
             });    
         });    
     });
-
-    describe('GET', function () {
-        it('Should return an empty array initially', function () {
-          return chai.request(app).get('/api/users').then(res => {
-            expect(res).to.have.status(200);
-            expect(res.body).to.be.an('array');
-            expect(res.body).to.have.length(0);
-          });
-        });
-        it('Should return an array of users', function () {
-          return User.create(
-            {
-              phoneNumber,
-              password,
-            },
-            {
-              phoneNumber: phoneNumberB,
-              password: passwordB
-            }
-          )
-            .then(() => chai.request(app).get('/api/users'))
-            .then(res => {
-              expect(res).to.have.status(200);
-              expect(res.body).to.be.an('array');
-              expect(res.body).to.have.length(2);
-              expect(res.body[0]).to.deep.equal({
-                phoneNumber
-              });
-              expect(res.body[1]).to.deep.equal({
-                phoneNumber: phoneNumberB,
-              });
-            });
-        });
-      });
 });

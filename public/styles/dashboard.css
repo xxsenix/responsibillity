@@ -127,10 +127,6 @@
     display: block;
   }
 
-  #date-input {
-    text-align: center;
-  }
-
   #textReminder {
     display: inline-block;
     margin: 10px auto;

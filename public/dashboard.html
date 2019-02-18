@@ -63,15 +63,13 @@
                         <form id="new-bill-form">
                             <fieldset>
                                 <label class="form-label" for="billName">Bill Name</label>
-                                <input class="form-input" type="text" id="billName" name="newBill" required>
+                                <input class="form-input" type="text" id="billName" name="billName" required>
                                 <label class="form-label" for="billAmount">Payment Amount</label>
-                                <input class="form-input" type="text" id="billAmount" name="newBill" required>
+                                <input class="form-input" type="text" id="billAmount" name="amount" placeholder="$" required>
                                 <label class="form-label" for="billWebsite">Bill Website</label>
-                                <input class="form-input" type="text" id="billWebsite" name="newBill" required>
-                                <label class="form-label" for="dueDate">When is your next bill due?</label>
-                                <input class="form-input" id="date-input" type="date" min="2019-02-05" max="2025-12-31" required>
-                                <label for="textReminder">Remind me via text!</label>
-                                <input type="checkbox" id="textReminder" name="textRemind">
+                                <input class="form-input" type="text" id="billWebsite" name="website" value="http://www." required>
+                                <label class="form-label" for="dueDate">What day of the month is your bill due?</label>
+                                <input class="form-input" id="date-input" type="number" min="1" max="31" required>
                                 <input type="submit" value="Submit" name="new-bill-submit" id="submit-button">
                             </fieldset>
                         </form>
@@ -88,15 +86,13 @@
                         <form id="edit-form">
                             <fieldset>
                                 <label class="form-label" for="billName">Bill Name</label>
-                                <input class="form-input" type="text" id="edit-billName" name="newBill" required>
+                                <input class="form-input" type="text" id="edit-billName" name="editBillName" required>
                                 <label class="form-label" for="billAmount">Payment Amount</label>
-                                <input class="form-input" type="text" id="edit-billAmount" name="newBill" required>
+                                <input class="form-input" type="text" id="edit-billAmount" name="editAmount" placeholder="$" required>
                                 <label class="form-label" for="billWebsite">Bill Website</label>
-                                <input class="form-input" type="text" id="edit-billWebsite" name="newBill" required>
-                                <label class="form-label" for="dueDate">When is your next bill due?</label>
-                                <input class="form-input" id="edit-date-input" type="date" min="2019-02-05" max="2025-12-31" required>
-                                <label for="textReminder">Remind me via text!</label>
-                                <input type="checkbox" id="textReminder" name="textRemind">
+                                <input class="form-input" type="text" id="edit-billWebsite" name="editWebsite" required>
+                                <label class="form-label" for="dueDate">When day of the month is your bill due?</label>
+                                <input class="form-input" id="edit-date-input" type="number" min="1" max="31" required>
                                 <input type="submit" value="Submit" name="edit-bill-submit" id="js-edit-submit-button">
                             </fieldset>
                         </form>

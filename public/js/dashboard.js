@@ -81,9 +81,9 @@ function renderBill(bill) {
   <span class="hidden" id="bill-id"></span>
   <button class="collapsible">${bill.billName}</button>
     <div class="content">
-        <p>Due date: ${bill.dueDate}</p>
+        <p>Due date: ${renderDayOfMonth(bill.dueDate)} of every month</p>
         <p>Amount: $${bill.amount}</p>
-        <p>Website: <a href="http://www.${bill.billWebsite}" target="_blank">${bill.billWebsite}</a></p>
+        <p>Website: <a href="${bill.billWebsite}" target="_blank">${bill.billWebsite}</a></p>
         <button class="js-bill-item-delete" data-billID="${bill.id}"><i class="far fa-trash-alt"></i></button>
         <button class="js-bill-item-edit" data-billID="${bill.id}"><i class="fas fa-edit"></i></button>
     </div>
@@ -109,7 +109,7 @@ function submitNewBill() {
       billName: $('#billName').val().trim(),
       amount: $('#billAmount').val(),
       billWebsite: $('#billWebsite').val().trim(),
-      dueDate: convertDate($('#date-input').val())
+      dueDate: ($('#date-input').val())
     }
     postBill(newBill)
     closeModal();
@@ -182,7 +182,7 @@ function handleEditSubmit() {
       billName: $('#edit-billName').val().trim(),
       amount: $('#edit-billAmount').val(),
       billWebsite: $('#edit-billWebsite').val().trim(),
-      dueDate: convertDate($('#edit-date-input').val())
+      dueDate: $('#edit-date-input').val()
     }
     submitEditedBill(editedBill);  
   });
@@ -284,9 +284,23 @@ function handleCollapsible() {
     });
   }
 
-  function convertDate(date) {
-    return date.slice(5) + '-' + date.substring(0,4);
+function renderDayOfMonth(day) {
+  if (day == 1 || day == 21 || day == 31) {
+    return `${day}st`
   }
+
+  else if (day == 2 || day == 22) {
+    return `${day}nd`
+  }
+
+  else if (day == 3 || day == 23) {
+    return `${day}rd`
+  }
+
+  else {
+    return `${day}th`
+  }
+}
 
 function handleApp() {
   getAuthToken();

@@ -52,3 +52,7 @@ a {
 button, input[type="submit"] {
     cursor: pointer;
 }
+
+#js-error-message {
+    color: white;
+}

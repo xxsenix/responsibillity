@@ -28,7 +28,7 @@ describe('/api/user', function () {
       beforeEach(function () { });
     
       afterEach(function () {
-        return User.deleteOne({});
+        return User.remove({});
       });
 
     describe('/api/users', function() {
@@ -113,8 +113,145 @@ describe('/api/user', function () {
                     if (err) {
                       throw err;
                     }
+                 });
+            });
+            it('Should reject users with password less than eight characters', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber,
+                    password: 'testtes',
+                  })
+                  .then((res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal(
+                      'Must be at least 8 characters long'
+                    );
+                    expect(res.body.location).to.equal('password');
+                  })
+                  .catch(err => {
+                    if (err) {
+                      throw err;
+                    }
+                });
+            });
+            it('Should reject users with password greater than 72 characters', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber,
+                    password: new Array(73).fill('a').join('')
+                  })
+                  .then((res) => {
+                    expect(res).to.have.status(422);
+                    expect(res.body.reason).to.equal('ValidationError');
+                    expect(res.body.message).to.equal(
+                      'Must be at most 72 characters long'
+                    );
+                    expect(res.body.location).to.equal('password');
+                  })
+                  .catch(err => {
+                    if (err) {
+                      throw err;
+                    }
+                });
+            });
+            it('Should reject users with duplicate phone numbers', function () {
+                // Create initial user
+                return User.create({
+                    phoneNumber,
+                    password
+                })
+                .then(() => {
+                    // Try creating user with same info
+                   chai
+                    .request(app)
+                    .post('/api/users')
+                    .send({
+                      phoneNumber,
+                      password
+                    })
+                    .then((res) => {
+                      expect(res).to.have.status(422);
+                      expect(res.body.reason).to.equal('ValidationError');
+                      expect(res.body.message).to.equal(
+                        'Phone number already taken'
+                      );
+                      expect(res.body.location).to.equal('phoneNumber');
+                    })
+                    .catch(err => {
+                      if (err) {
+                        throw err;
+                      }
+                    })
+                });
+            });
+
+            it('Should create a new user', function () {
+                return chai
+                  .request(app)
+                  .post('/api/users')
+                  .send({
+                    phoneNumber,
+                    password
+                  })
+                  .then(res => {
+                    expect(res).to.have.status(201);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.keys(
+                      'phoneNumber'
+                    //   'id'
+                    );
+                    expect(res.body.phoneNumber).to.equal(phoneNumber);
+                    return User.findOne({
+                        phoneNumber
+                    });
+                  })
+                  .then(user => {
+                    expect(user).to.not.be.null;
+                    return user.validatePassword(password);
+                  })
+                  .then(passwordIsCorrect => {
+                    expect(passwordIsCorrect).to.be.true;
                   });
+            });    
+        });    
+    });
+
+    describe('GET', function () {
+        it('Should return an empty array initially', function () {
+          return chai.request(app).get('/api/users').then(res => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.length(0);
+          });
+        });
+        it('Should return an array of users', function () {
+          return User.create(
+            {
+              phoneNumber,
+              password,
+            },
+            {
+              phoneNumber: phoneNumberB,
+              password: passwordB
+            }
+          )
+            .then(() => chai.request(app).get('/api/users'))
+            .then(res => {
+              expect(res).to.have.status(200);
+              expect(res.body).to.be.an('array');
+              expect(res.body).to.have.length(2);
+              expect(res.body[0]).to.deep.equal({
+                phoneNumber
+              });
+              expect(res.body[1]).to.deep.equal({
+                phoneNumber: phoneNumberB,
+              });
             });
         });
-    });
+      });
 });

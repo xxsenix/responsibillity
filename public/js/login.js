@@ -24,7 +24,7 @@ function submitLogin(user) {
     })
     .then(response => {
         if (response.status === 401) {
-            $('#js-login-error-message').text("Incorrect phone number or password");
+            $('.js-error-message').text("Incorrect phone number or password");
         }
         else {
             return response.json();

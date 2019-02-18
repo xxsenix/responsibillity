@@ -1,15 +1,15 @@
 // Make sure passwords match
 $('#js-password, #js-confirm-password').on('keyup', function(event) {
     if ($('#js-password').val() == $('#js-confirm-password').val()) {
-        $('#js-error-message').html('Passwords Match');
+        $('.js-error-message').html('Passwords Match');
     }
     else {
-        $('#js-error-message').html(`Passwords don't match`);
+        $('.js-error-message').html(`Passwords don't match`);
     }
 });
 
 //Listen for user submit
-$('.js-submit-form').on('submit', '#js-submit-button', function(event) {
+$('.js-submit-form').on('click', '#js-submit-button', function(event) {
     event.preventDefault();
     let newUser = {};
     newUser.phoneNumber = $('#js-phoneNumber').val().toString();
@@ -35,8 +35,16 @@ function submitUser(newUser) {
         if (response.status === 201) {
             window.location.href = "/login.html"
         }
+
+        else if (response.status === 422) {
+            $('.js-error-message').html(
+                `<h3>Oops!</h3> 
+                 <p>Phone # must be 10 digits (no hyphens).</p>
+                 <p>Password must be between 8 and 72 characters long.</p>`);
+        }
         else {
             return response.json()
         }
     })
     .catch(error => console.log('Bad request'));
+}

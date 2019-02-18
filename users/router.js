@@ -10,18 +10,29 @@ const jsonParser = bodyParser.json();
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
+    console.log(req.body);
     const requiredFields = ['phoneNumber', 'password'];
     const missingField = requiredFields.find(field => !(field in req.body));
-    console.log(missingField);
 
     if (missingField) {
-        console.log(missingField);
       return res.status(422).json({
         code: 422,
         reason: 'ValidationError',
         message: 'Missing field',
         location: missingField
       });
+    }
+
+    const numField = 'phoneNumber';
+    const nonNumField = numField in req.body && typeof req.body[numField] !== 'number';
+   
+    if (nonNumField) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ValidationError',
+            message: 'Incorrect field type: expected number',
+            location: numField        
+        });
     }
 
     const stringField = 'password';
@@ -67,9 +78,9 @@ router.post('/', jsonParser, (req, res) => {
     const tooLargeField = Object.keys(sizedFields).find(
         field =>
           'max' in sizedFields[field] &&
-                req.body[field].trim().length > sizedFields[field].min
+                req.body[field].trim().length > sizedFields[field].max
     );
-    
+
     if (tooSmallField) {
         return res.status(422).json({
             code: 422,

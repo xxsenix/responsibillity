@@ -228,7 +228,6 @@ describe('/api/user', function () {
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.keys(
                       'phoneNumber'
-                    //   'id'
                     );
                     expect(res.body.phoneNumber).to.equal(phoneNumberInJSON);
                     return User.findOne({

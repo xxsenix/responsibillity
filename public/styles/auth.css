@@ -44,3 +44,10 @@ fieldset {
 .auth-link {
     text-align: center;
 }
+
+.js-error-message {
+    color: black;
+    text-shadow: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+}

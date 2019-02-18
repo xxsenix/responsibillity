@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ResponsiBILLity</title>
+    <title>Responsibillity</title>
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/shared.css">
     <link rel="stylesheet" href="styles/auth.css">
@@ -18,18 +18,20 @@
     <main role="main">
         <section id="auth-section" role="region">
             <h1 class="auth-title">Log In</h1>
-            <form class="form-style">
+            <form class="form-style js-login-form">
                 <fieldset>
-                    <label class="form-label" for="firstName">Username</label>
-                    <input class="form-input" type="text" id="username" name="login">
+                    <label class="form-label" for="firstName">Phone Number</label>
+                    <input class="form-input" type="text" id="js-phoneNumber" name="phoneNumber" required>
                     <label class="form-label" for="firstName">Password</label>
-                    <input class="form-input" type="text" id="password" name="login">
+                    <input class="form-input" type="password" id="js-password" name="password" required>
+                    <div class="js-error-message"></div>
+                    <input class="auth-button js-login-button" type="submit" value="Submit">
                 </fieldset>
             </form>
-            <!--the input submit needs to be put inside the form when I implement -->
-            <input class="auth-button" type="submit" value="Submit" onclick="location.href='dashboard.html'">
             <p class="auth-link">Need an account?<a href="signup.html">Sign Up</a></p>
         </section>
     </main>
+    <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 </html>

@@ -116,7 +116,7 @@
       width: 60%;
   }
 
-  #submit-button {
+  #submit-button, #js-edit-submit-button {
     background: #f85032;
     width: 75px;
     height: 35px;
@@ -144,16 +144,29 @@
     list-style-type: none;
  }
 
- .js-bill-item-delete {
-    background: purple;
-    color: white;
+ .js-bill-item-delete, .js-bill-item-edit {
+    color: black;
     margin-bottom: 5px;
     padding: 5px;
+    border: none;
+    font-size: 20px;
  }
 
- .js-bill-item-edit {
-     background: green;
-     color: white;
-     margin-bottom: 5px;
-     padding: 5px;
+ .js-bill-item-delete:hover, .js-bill-item-edit:hover {
+     color: #f85032;
  }
+
+ #js-signout-link {
+     position: fixed;
+     right: 0;
+     padding: 20px;
+     font-size: 15px;
+     text-decoration: none;
+     float: right;
+     padding: 20px;
+ }
+
+ .hidden {
+     display: none;
+ }
+

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ResponsiBILLity</title>
+    <title>Responsibillity</title>
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/shared.css">
     <link rel="stylesheet" href="styles/auth.css">
@@ -18,20 +18,22 @@
     <main role="main">
         <section id="auth-section" role="region">
             <h1 class="auth-title">Sign Up</h1>
-            <form class="form-style">
+            <form class="form-style js-submit-form">
                 <fieldset>
-                    <label class="form-label" for="firstName">Phone Number</label>
-                    <input class="form-input" type="text" id="phoneNumber" name="login" placeholder="ex: 123-456-7890">
+                    <label class="form-label" for="phoneNumber">Phone Number</label>
+                    <input class="form-input" id="js-phoneNumber" type="tel" name="phoneNumber" placeholder="ex: 8171231234" pattern="[0-9]{10}" title="10 digit phone # without dashes. Ex: 8171231234" required>
                     <label class="form-label" for="password">Password</label>
-                    <input class="form-input" type="text" id="password" name="login">
+                    <input class="form-input" id="js-password" type="password" name="password" required>
                     <label class="form-label" for="password">Re-Enter Password</label>
-                    <input class="form-input" type="text" id="rePassword" name="login">
+                    <input class="form-input" id="js-confirm-password" type="password" name="password-repeat" required>
+                    <p class="js-error-message"></p>
+                    <input class="auth-button" id="js-submit-button" type="submit" value ="Submit">
                 </fieldset>
             </form>
-            <!--the input submit needs to be put inside the form when i implement -->
-            <input class="auth-button" type="submit" value ="Submit" onclick="location.href='login.html'">
             <p class="auth-link">Already a member?<a href="login.html">Log In</a></p>
         </section>
     </main>
+    <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/js/signup.js"></script>
 </body>
 </html>

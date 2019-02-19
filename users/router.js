@@ -23,6 +23,18 @@ router.post('/', jsonParser, (req, res) => {
       });
     }
 
+    const numField = 'phoneNumber';
+    const nonNumField = numField in req.body && typeof req.body[numField] !== 'number';
+   
+    if (nonNumField) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ValidationError',
+            message: 'Incorrect field type: expected number',
+            location: numField      
+        });
+    }
+
     const stringField = 'password';
     const nonStringField = stringField in req.body && typeof req.body[stringField] !== 'string';
    
@@ -57,6 +69,12 @@ router.post('/', jsonParser, (req, res) => {
         }
     };
 
+    const notEnoughDigits = Object.keys(sizedFields).find(
+        field =>
+          'num' in sizedFields[field] &&
+                req.body[field].toString().length !== sizedFields[field].num 
+    );  
+
     const tooSmallField = Object.keys(sizedFields).find(
         field =>
           'min' in sizedFields[field] &&
@@ -68,6 +86,15 @@ router.post('/', jsonParser, (req, res) => {
           'max' in sizedFields[field] &&
                 req.body[field].trim().length > sizedFields[field].max
     );
+
+    if (notEnoughDigits) {
+        return res.status(422).json({
+            code: 422,
+            reason: 'ValidationError',
+            message: `Must be ${sizedFields[notEnoughDigits].num} digits long`,
+            location: notEnoughDigits
+        });
+    }
 
     if (tooSmallField) {
         return res.status(422).json({

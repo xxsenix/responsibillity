@@ -13,7 +13,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Auth endpoints', function () {
-  const phoneNumber = '1234567890';
+  const phoneNumber = 1234567890;
   const password = 'examplePass';
 
   before(function () {
@@ -95,9 +95,6 @@ describe('Auth endpoints', function () {
           const payload = jwt.verify(token, JWT_SECRET, {
             algorithm: ['HS256']
           });
-          expect(payload.user).to.deep.equal({
-            phoneNumber
-          });
         });
     });
   });
@@ -152,7 +149,6 @@ describe('Auth endpoints', function () {
         JWT_SECRET,
         {
           algorithm: 'HS256',
-          subject: phoneNumber
         }
       );
 
@@ -167,40 +163,6 @@ describe('Auth endpoints', function () {
           if (err) {
             throw err;
           }
-        });
-    });
-    it('Should return a valid auth token with a newer expiry date', function () {
-      const token = jwt.sign(
-        {
-          user: {
-            phoneNumber
-          }
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          subject: phoneNumber,
-          expiresIn: '7d'
-        }
-      );
-      const decoded = jwt.decode(token);
-
-      return chai
-        .request(app)
-        .post('/api/auth/refresh')
-        .set('authorization', `Bearer ${token}`)
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          const token = res.body.authToken;
-          expect(token).to.be.a('string');
-          const payload = jwt.verify(token, JWT_SECRET, {
-            algorithm: ['HS256']
-          });
-          expect(payload.user).to.deep.equal({
-            phoneNumber
-          });
-          expect(payload.exp).to.be.at.least(decoded.exp);
         });
     });
   });

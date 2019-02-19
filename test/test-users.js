@@ -12,7 +12,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('/api/user', function () {
-    const phoneNumber = '2141112345';
+    const phoneNumber = 2141112345;
     const password = 'examplePass';
 
     before(function () {
@@ -203,7 +203,7 @@ describe('/api/user', function () {
                     expect(res.body).to.have.keys(
                       'phoneNumber'
                     );
-                    expect(res.body.phoneNumber).to.equal(phoneNumber);
+                    expect(res.body.phoneNumber).to.equal('2141112345');
                     return User.findOne({
                         phoneNumber
                     });

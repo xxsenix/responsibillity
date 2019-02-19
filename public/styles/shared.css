@@ -56,3 +56,37 @@ button, input[type="submit"] {
 #js-error-message {
     color: white;
 }
+
+/*Tablet*/
+
+@media only screen and (max-width: 800px) {
+
+    nav {
+        display: flex
+    }
+
+    #nav-title {
+        margin: auto;
+    }
+
+    #index-section h1 {
+        font-size: 30px
+    }
+}
+
+/*Mobile*/
+
+@media only screen and (max-width: 580px) {
+
+    nav {
+        display: flex;
+    }
+
+    #nav-title {
+        margin: auto;
+    }
+
+    #index-section h1 {
+        font-size: 20px
+    }
+}

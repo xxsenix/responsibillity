@@ -13,6 +13,7 @@
     outline: none;
     font-size: 15px;
     text-align: center;
+    margin: auto;
     margin-top: 20px;
   }
   
@@ -23,7 +24,7 @@
   /* Style the collapsible content. Note: hidden by default */
   .content {
     width: 50%;
-    margin: 0 auto;
+    margin: auto;
     text-align: center;
     padding: 0 18px;
     background-color: white;
@@ -138,6 +139,8 @@
 
  .js-bill-item {
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
  }
 
  .js-bill-item-delete, .js-bill-item-edit {
@@ -158,7 +161,6 @@
      padding: 20px;
      font-size: 15px;
      text-decoration: none;
-     float: right;
      padding: 20px;
  }
 
@@ -166,3 +168,32 @@
      display: none;
  }
 
+/*Tablet*/
+
+@media only screen and (max-width: 800px) {
+
+    .modal-content {
+        width: 75%;
+    }
+
+    .content, .collapsible {
+        width: 60%;
+    }
+}
+
+/*Mobile*/
+
+@media only screen and (max-width: 580px) {
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .content, .collapsible {
+        width: 80%;
+    }
+
+    #js-signout-link {
+        top: 5%;
+    }
+}

@@ -194,6 +194,11 @@
     }
 
     #js-signout-link {
-        top: 5%;
+        position: absolute;
+        top: 6%;
+    }
+
+    .form-input {
+        width: 80%;
     }
 }

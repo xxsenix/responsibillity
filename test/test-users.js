@@ -12,12 +12,8 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('/api/user', function () {
-    const phoneNumber = 2141112345;
-    const phoneNumberInJSON = '2141112345';
+    const phoneNumber = '2141112345';
     const password = 'examplePass';
-    const phoneNumberB = 4693569067;
-    const phoneNumberBInJSON = '4693569067';
-    const passwordB = 'anotherExample';
 
     before(function () {
         return runServer(TEST_DATABASE_URL);
@@ -73,29 +69,7 @@ describe('/api/user', function () {
                         }
                     });
             });
-            it('Should reject users with non-numeric phone number', function () {
-                return chai
-                  .request(app)
-                  .post('/api/users')
-                  .send({
-                    phoneNumber: 'aaaaaaaaaa',
-                    password
-                  })
-                  .then((res) => {
-                    expect(res).to.have.status(422);
-                    expect(res.body.reason).to.equal('ValidationError');
-                    expect(res.body.message).to.equal(
-                      'Incorrect field type: expected number'
-                    );
-                    expect(res.body.location).to.equal('phoneNumber');
-                  })
-                  .catch(err => {
-                    if (err) {
-                      throw err;
-                    }
-                  });
-            });
-
+            
             it('Should reject users with non-string password', function () {
                 return chai
                   .request(app)
@@ -229,7 +203,7 @@ describe('/api/user', function () {
                     expect(res.body).to.have.keys(
                       'phoneNumber'
                     );
-                    expect(res.body.phoneNumber).to.equal(phoneNumberInJSON);
+                    expect(res.body.phoneNumber).to.equal(phoneNumber);
                     return User.findOne({
                         phoneNumber
                     });

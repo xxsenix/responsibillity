@@ -4,11 +4,11 @@ Responsibillity is made for the sole purpose of clearing up some brain space for
 
 # Demo
 
-<p>Demo login:</p>
+Demo login:
 <ul>
     <li>Phone Number: 8171231234</li>
     <li>Password: demopass</li>
-<ul>
+</ul>
 <ul>
   <li><a href="https://secure-beach-90974.herokuapp.com/">Live Demo</a></li>
 </ul>  
@@ -22,7 +22,7 @@ Landing Page:
 
 Sign Up:
 
-![image](https://user-images.githubusercontent.com/22872184/50403844-a010eb00-0767-11e9-9b59-bcafc4be7353.png)
+![image](https://user-images.githubusercontent.com/22872184/52987923-ceefba00-33c2-11e9-9cd1-c0187f4f8f86.png)
 
 Dashboard:
 

@@ -26,14 +26,6 @@ function submitUser(newUser) {
             window.location.href = "/login.html"
         }
 
-        // else if (response.status === 422) {
-        //     console.log('response', response);
-        //     $('.js-error-message').text(response.message);
-        //     $('.js-error-message').html(
-        //         `<h3>Oops!</h3> 
-        //          <p>Phone # must be 10 digits (no hyphens).</p>
-        //          <p>Password must be between 8 and 72 characters long.</p>`);
-        // }
         else {
             return response.json()
         }

@@ -1,4 +1,4 @@
-let dayInMilliseconds = 86400000;
+let timeToExpire = 86400000;
 
 let state = {
   token: ""
@@ -6,7 +6,7 @@ let state = {
 
 function getAuthToken() {
   state.token = localStorage.getItem("authToken");
-  setInterval(refreshToken, dayInMilliseconds);
+  setInterval(refreshToken, timeToExpire);
 
   if (state.token) {
     refreshToken();
@@ -76,6 +76,8 @@ function fetchBills(callback) {
   });
 }
 
+// Render the individual bill collapsible
+
 function renderBill(bill) {
   return `<li class="js-bill-item">
   <span class="hidden" id="bill-id"></span>
@@ -89,6 +91,8 @@ function renderBill(bill) {
     </div>
   </li>`
 }
+
+// Renders all bills to the DOM
 
 function renderAllBills(responseJson) {
   $('.js-bill-list').empty();
@@ -137,6 +141,8 @@ function postBill(newBill) {
 
 // PUT bill
 
+// First need to get the ID of the bill to edit
+
 function getIdtoEditBill() {
   $('.js-bill-list').on('click', '.js-bill-item-edit', function(event) {
     event.preventDefault();
@@ -145,6 +151,8 @@ function getIdtoEditBill() {
     openEditableModal();
   })
 }
+
+// Fetches that one bill 
 
 function getOneBill(billId) {
   fetch(`api/bills/${billId}`,
@@ -165,6 +173,8 @@ function getOneBill(billId) {
   })
   .catch(error => console.log('Bad request'));
 }
+
+// Populates the modal with user inputted info
 
 function populateModal(responseJson) {
   $("#bill-id").text(`${responseJson.id}`);
@@ -283,6 +293,8 @@ function handleCollapsible() {
       } 
     });
   }
+
+// Based on the day, this function adds a suffix onto that number
 
 function renderDayOfMonth(day) {
   if (day == 1 || day == 21 || day == 31) {

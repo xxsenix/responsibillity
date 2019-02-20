@@ -1,14 +1,4 @@
-// Make sure passwords match
-// $('#js-confirm-password').on('keyup', function(event) {
-//     if ($('#js-password').val() == $('#js-confirm-password').val()) {
-//         $('.js-error-message').text('Passwords Match');
-//     }
-//     else {
-//         $('.js-error-message').text(`Passwords don't match`);
-//     }
-// });
-
-//Listen for user submit
+// Listen for user submit
 $('.js-submit-form').on('click', '#js-submit-button', function(event) {
     event.preventDefault();
     let newUser = {};
@@ -20,7 +10,7 @@ $('.js-submit-form').on('click', '#js-submit-button', function(event) {
     $('#js-password').val('');
     $('#js-confirm-password').val('');
 });
-
+// Sends user info to /api/users
 function submitUser(newUser) {
     fetch('/api/users',
     {
@@ -36,15 +26,21 @@ function submitUser(newUser) {
             window.location.href = "/login.html"
         }
 
-        else if (response.status === 422) {
-            $('.js-error-message').html(
-                `<h3>Oops!</h3> 
-                 <p>Phone # must be 10 digits (no hyphens).</p>
-                 <p>Password must be between 8 and 72 characters long.</p>`);
-        }
+        // else if (response.status === 422) {
+        //     console.log('response', response);
+        //     $('.js-error-message').text(response.message);
+        //     $('.js-error-message').html(
+        //         `<h3>Oops!</h3> 
+        //          <p>Phone # must be 10 digits (no hyphens).</p>
+        //          <p>Password must be between 8 and 72 characters long.</p>`);
+        // }
         else {
             return response.json()
         }
+
+    })
+    .then(response => {
+        $('.js-error-message').text(response.message)
     })
     .catch(error => console.log('Bad request'));
 }

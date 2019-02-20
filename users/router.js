@@ -10,7 +10,7 @@ const jsonParser = bodyParser.json();
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-    console.log(req.body);
+
     const requiredFields = ['phoneNumber', 'password'];
     const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -27,10 +27,11 @@ router.post('/', jsonParser, (req, res) => {
     const nonNumField = numField in req.body && typeof req.body[numField] !== 'number';
    
     if (nonNumField) {
+        console.log(nonNumField);
         return res.status(422).json({
             code: 422,
             reason: 'ValidationError',
-            message: 'Incorrect field type: expected number',
+            message: 'Phone # must be 10 digits exactly',
             location: numField      
         });
     }
@@ -91,7 +92,7 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ValidationError',
-            message: `Must be ${sizedFields[notEnoughDigits].num} digits long`,
+            message: `Phone # must be ${sizedFields[notEnoughDigits].num} digits long`,
             location: notEnoughDigits
         });
     }
@@ -100,7 +101,7 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ValidationError',
-            message: `Must be at least ${sizedFields[tooSmallField].min} characters long`,
+            message: `Password must be at least ${sizedFields[tooSmallField].min} characters long`,
             location: tooSmallField
         });
     }
@@ -109,7 +110,7 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ValidationError',
-            message: `Must be at most ${sizedFields[tooLargeField].max} characters long`,
+            message: `Password must be at most ${sizedFields[tooLargeField].max} characters long`,
             location: tooLargeField
         });
     }

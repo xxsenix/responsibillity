@@ -13,7 +13,7 @@ const billsRouter = require('./bills/billsRouter');
 
 mongoose.Promise = global.Promise;
 
-const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
+const {PORT, DATABASE_URL} = require('./config');
 
 const app = express();
 
@@ -40,14 +40,6 @@ passport.use(jwtStrategy);
 app.use('/api/bills', billsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth/', authRouter);
-
-// const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// app.get('/api/protected', jwtAuth, (req, res) => {
-//   return res.json({
-//     data: 'rosebud'
-//   });
-// });
 
 app.use('*', (req, res) => {
     return res.status(404).json({message: 'Not Found'});

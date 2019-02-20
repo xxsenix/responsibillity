@@ -126,7 +126,7 @@ describe('/api/user', function () {
                     expect(res).to.have.status(422);
                     expect(res.body.reason).to.equal('ValidationError');
                     expect(res.body.message).to.equal(
-                      'Must be at least 8 characters long'
+                      'Password must be at least 8 characters long'
                     );
                     expect(res.body.location).to.equal('password');
                   })
@@ -148,7 +148,7 @@ describe('/api/user', function () {
                     expect(res).to.have.status(422);
                     expect(res.body.reason).to.equal('ValidationError');
                     expect(res.body.message).to.equal(
-                      'Must be at most 72 characters long'
+                      'Password must be at most 72 characters long'
                     );
                     expect(res.body.location).to.equal('password');
                   })

@@ -4,7 +4,7 @@ Responsibillity is made for the sole purpose of clearing up some brain space for
 
 # Demo
 
-<a href="https://secure-beach-90974.herokuapp.com/">Live Demo</a>
+<a href="https://responsibillity.herokuapp.com/">Live Demo</a>
 
 Demo login:
 <ul>

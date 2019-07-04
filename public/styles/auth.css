@@ -52,6 +52,20 @@ fieldset {
     font-weight: bold;
 }
 
+
+.demotitle {
+    text-decoration: underline;
+    font-size: 13px;
+    padding: 2px;
+    text-align: center;
+  }
+  
+  .demologin {
+    font-size: 12px;
+    padding: 2px;
+    text-align: center;
+  }
+
 /*Tablet*/
 
 @media only screen and (max-width: 800px) {
